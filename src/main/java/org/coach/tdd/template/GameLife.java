@@ -57,4 +57,19 @@ public class GameLife {
 
         return result;
     }
+
+    public int[][] getCellMap() {
+        nextCellMap();
+        return cellMap;
+    }
+
+    public void nextCellMap() {
+        int nextArr[][] = new int[kHeight][kWidth];
+        for (int i = 0; i <kHeight ; i++) {
+            for (int j = 0; j <kWidth ; j++) {
+                nextArr[i][j]=getCellState(i,j);
+            }
+        }
+        cellMap=nextArr;
+    }
 }

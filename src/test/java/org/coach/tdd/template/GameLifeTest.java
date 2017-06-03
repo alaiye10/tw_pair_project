@@ -27,4 +27,13 @@ public class GameLifeTest {
         assertEquals(1,gameLife.getCellState(0,2));
         assertEquals(1,gameLife.getCellState(1,0));
     }
+
+    @Test
+    public void shouldReturnLastCellMapState() throws Exception {
+        int arr[][] = {{1, 1, 1}, {1, 0, 1},{1, 0,0}};
+        GameLife gameLife = new GameLife(arr);
+        int lastArr[][] = gameLife.getCellMap();
+        int exp[][]={{1, 0, 1}, {1, 0, 1}, {0, 1, 0}};
+        assertArrayEquals(exp,lastArr);
+    }
 }
