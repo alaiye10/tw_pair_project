@@ -28,8 +28,6 @@ public class GameLifeRunner {
     private static JLabel[][] labels = new JLabel[ROW_CELL][COL_CELL];
     private static JFrame frame;
 
-
-
     public static void main(String[] args) {
 
         int[][] initCellMap = new int[ROW_CELL][COL_CELL];
@@ -55,13 +53,11 @@ public class GameLifeRunner {
 
         frame.setSize(ROW_CELL_WIDTH * ROW_CELL, ROW_CELL_WIDTH * COL_CELL);
         frame.setLayout(new GridLayout(ROW_CELL, COL_CELL));
-
-
+        
         for (int i = 0; i < ROW_CELL; i++) {
             for (int j = 0; j < COL_CELL; j++) {
                 JLabel label = new JLabel();
                 label.setOpaque(true);
-                label.setText(String.valueOf(i));
                 label.setBorder(BorderFactory.createLineBorder(Color.BLUE));
 
                 frame.getContentPane().add(label);
