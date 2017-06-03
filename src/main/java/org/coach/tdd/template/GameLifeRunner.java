@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
@@ -65,7 +67,6 @@ public class GameLifeRunner {
                 JLabel label = new JLabel();
                 label.setOpaque(true);
                 label.setBorder(BorderFactory.createLineBorder(Color.BLUE));
-
                 frame.getContentPane().add(label);
                 labels[i][j] = label;
             }
@@ -81,6 +82,11 @@ public class GameLifeRunner {
         JMenuBar menuBar = new JMenuBar();
         frame.setJMenuBar(menuBar);
         JMenu speedMenu = new JMenu("Speed");
+        configSpeedMenuItemAndAction(speedMenu);
+        menuBar.add(speedMenu);
+    }
+
+    private static void configSpeedMenuItemAndAction(JMenu speedMenu) {
         JMenuItem slowItem = new JMenuItem(SLOW);
         JMenuItem normalItem = new JMenuItem(NORMAL);
         JMenuItem fastItem = new JMenuItem(FAST);
@@ -90,7 +96,6 @@ public class GameLifeRunner {
         setMenuItemAction(slowItem, SLOW_SPEED);
         setMenuItemAction(normalItem, NORMAL_SPEED);
         setMenuItemAction(fastItem, FAST_SPEED);
-        menuBar.add(speedMenu);
     }
 
     private static void setMenuItemAction(JMenuItem item, int speedLevel) {
