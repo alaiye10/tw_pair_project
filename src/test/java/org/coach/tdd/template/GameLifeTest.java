@@ -23,6 +23,6 @@ public class GameLifeTest {
     public void shouldAliveOnlyThreeAliveAround() throws Exception {
         int act = classUnderTest.checkStatus(1, 1, 1);
         int exp = 1;
-        assertEquals(act, exp); 
+        assertEquals(act, exp);
     }
 }
