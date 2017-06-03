@@ -8,13 +8,13 @@ public class GameLife {
 
     public GameLife(int[][] arr) {
         cellMap = arr;
-        kHeight=cellMap.length;
-        kWidth=cellMap[0].length;
+        kHeight = cellMap.length;
+        kWidth = cellMap[0].length;
     }
 
     private void printCellMap(int[][] map) {
-        for (int i = 0; i <kHeight ; i++) {
-            for (int j = 0; j <kWidth ; j++) {
+        for (int i = 0; i < kHeight ; i++) {
+            for (int j = 0; j < kWidth ; j++) {
                 System.out.println(cellMap[i][j]);
             }
         }
@@ -22,13 +22,14 @@ public class GameLife {
 
 
     public int getAliveNumber(int x, int y) {
-        int sum=0;
-        for (int i=x-1; i<=x+1; i++) {
-            for (int j = y-1; j <=y+1 ; j++) {
-                if(i==x&&j==y)
+        int sum = 0;
+        for (int i = x - 1; i <= x + 1; i++) {
+            for (int j = y - 1; j <= y + 1 ; j++) {
+                if (i == x && j == y) {
                     continue;
-                else
-                    sum+=isCellAlive(i,j);
+                } else {
+                    sum += isCellAlive(i, j);
+                }
             }
         }
 
@@ -36,7 +37,7 @@ public class GameLife {
     }
 
     private int isCellAlive(int x, int y) {
-        if(x>=0&&x<kWidth&&y>=0&&y<kHeight) {
+        if (x >= 0 && x < kWidth && y >= 0 && y < kHeight) {
             return cellMap[x][y];
         }
 
@@ -64,12 +65,12 @@ public class GameLife {
     }
 
     public void nextCellMap() {
-        int nextArr[][] = new int[kHeight][kWidth];
-        for (int i = 0; i <kHeight ; i++) {
-            for (int j = 0; j <kWidth ; j++) {
-                nextArr[i][j]=getCellState(i,j);
+        int[][] nextArr = new int [kHeight][kWidth];
+        for (int i = 0; i < kHeight ; i++) {
+            for (int j = 0; j < kWidth ; j++) {
+                nextArr[i][j] = getCellState(i, j);
             }
         }
-        cellMap=nextArr;
+        cellMap = nextArr;
     }
 }
