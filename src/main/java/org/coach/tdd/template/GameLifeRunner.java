@@ -1,12 +1,15 @@
 package org.coach.tdd.template;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.*;
-import javax.swing.event.MenuKeyEvent;
-import javax.swing.event.MenuKeyListener;
 
+import javax.swing.JLabel;
+import javax.swing.JMenuItem;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JFrame;
 
 /**
  * Created by XvWenJun on 2017/6/3.
@@ -17,10 +20,13 @@ public class GameLifeRunner {
     public static final int COL_CELL = 20;
     public static final int ROW_CELL_WIDTH = 40;
     public static final int DEPTH = 500;
-    public static final String SLOW = "slow";
-    public static final String NORMAL = "normal";
-    public static final String FAST = "fast";
-    public static int SPEED = 100;
+    public static final String SLOW = "Slow";
+    public static final String NORMAL = "Normal";
+    public static final String FAST = "Fast";
+    public static final int SLOW_SPEED = 200;
+    public static final int NORMAL_SPEED = 100;
+    public static final int FAST_SPEED = 50;
+    private static int speed = 100;
     private static JLabel[][] labels = new JLabel[ROW_CELL][COL_CELL];
     private static JFrame frame;
 
@@ -72,46 +78,30 @@ public class GameLifeRunner {
     private static void createMenu() {
         JMenuBar menuBar = new JMenuBar();
         frame.setJMenuBar(menuBar);
-
-        JMenu speedMenu = new JMenu("speed");
-
+        JMenu speedMenu = new JMenu("Speed");
         JMenuItem slowItem = new JMenuItem(SLOW);
         JMenuItem normalItem = new JMenuItem(NORMAL);
         JMenuItem fastItem = new JMenuItem(FAST);
         speedMenu.add(slowItem);
         speedMenu.add(normalItem);
         speedMenu.add(fastItem);
-
-        slowItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                SPEED = 200;
-            }
-        });
-
-        normalItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                SPEED = 100;
-            }
-        });
-
-        fastItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                SPEED = 50;
-            }
-        });
-
+        setMenuItemAction(slowItem, SLOW_SPEED);
+        setMenuItemAction(normalItem, NORMAL_SPEED);
+        setMenuItemAction(fastItem, FAST_SPEED);
         menuBar.add(speedMenu);
     }
 
+    private static void setMenuItemAction(JMenuItem item, int speedLevel) {
+        item.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                speed = speedLevel;
+            }
+        });
+    }
+
     private static void configLabels(int[][] array) {
-        try {
-            Thread.sleep(SPEED);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        pauseUpdateUI();
 
         for (int i = 0; i < ROW_CELL; i++) {
             for (int j = 0; j < COL_CELL; j++) {
@@ -124,7 +114,13 @@ public class GameLifeRunner {
                 }
             }
         }
+    }
 
-        frame.repaint();
+    private static void pauseUpdateUI() {
+        try {
+            Thread.sleep(speed);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }
