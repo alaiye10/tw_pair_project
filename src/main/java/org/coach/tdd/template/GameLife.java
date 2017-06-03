@@ -2,16 +2,45 @@ package org.coach.tdd.template;
 
 public class GameLife {
 
-    private static int kWidth = 3;
-    private static int kHeight = 3;
+    private int kWidth;
+    private int kHeight;
     private int[][] cellMap;
 
     public GameLife(int[][] arr) {
         cellMap = arr;
+        kHeight=cellMap.length;
+        kWidth=cellMap[0].length;
+    }
+
+    private void printCellMap(int[][] map) {
+        for (int i = 0; i <kHeight ; i++) {
+            for (int j = 0; j <kWidth ; j++) {
+                System.out.println(cellMap[i][j]);
+            }
+        }
     }
 
 
     public int getAliveNumber(int x, int y) {
-        return  0;
+        int sum=0;
+        for (int i=x-1; i<=x+1; i++) {
+            for (int j = y-1; j <=y+1 ; j++) {
+                if(i==x&&j==y)
+                    continue;
+                else
+                    sum+=isCellAlive(i,j);
+            }
+        }
+
+        return sum;
+    }
+
+    private int isCellAlive(int x, int y) {
+        if(x>=0&&x<kWidth&&y>=0&&y<kHeight) {
+            return cellMap[x][y];
+
+        }
+        return 0;
+
     }
 }
