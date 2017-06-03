@@ -2,6 +2,11 @@ package org.coach.tdd.template;
 
 public class GameLife {
 
+    public static final int ALIVE_COUNT = 3;
+    public static final int KEEP_COUNT = 2;
+    public static final int ALIVE_STATE = 1;
+    public static final int DEATH_STATE = 0;
+
     private int kWidth;
     private int kHeight;
     private int[][] cellMap;
@@ -31,12 +36,12 @@ public class GameLife {
         int cellAroundAliveNumber = calculateCellAroundAliveNumber(x, y);
 
         int result;
-        if (cellAroundAliveNumber == 3) {
-            result = 1;
-        } else if (cellAroundAliveNumber == 2) {
+        if (cellAroundAliveNumber == ALIVE_COUNT) {
+            result = ALIVE_STATE;
+        } else if (cellAroundAliveNumber == KEEP_COUNT) {
             result = cellMap[x][y];
         } else {
-            result = 0;
+            result = DEATH_STATE;
         }
 
         return result;
