@@ -17,7 +17,7 @@ public class GameLifeRunner {
         frame = new JFrame("HelloWorldSwing");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        frame.setSize(200, 200);
+        frame.setSize(400, 400);
         frame.setLayout(new GridLayout(10, 10));
 
 
@@ -50,9 +50,8 @@ public class GameLifeRunner {
         createAndShowGUI();
         for (int i = 0; i < 50; i++) {
             int[][] arr=gameLife.updateCellMap();
-
             configLabels(arr);
-            printArr(arr);
+//            printArr(arr);
         }
 
     }
@@ -75,7 +74,9 @@ public class GameLifeRunner {
 
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
-                labels[i][j].setText(String.valueOf(array[i][j]));
+                int num = array[i][j];
+                String c = num == 1 ? "*" : " ";
+                labels[i][j].setText(c);
             }
         }
 
