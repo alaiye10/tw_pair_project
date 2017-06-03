@@ -9,20 +9,25 @@ import java.awt.*;
  */
 public class GameLifeRunner {
 
-    private static JLabel[][] labels = new JLabel[10][10];
+    public static final int ROW_CELL = 20;
+    public static final int COL_CELL = 20;
+    public static final int ROW_CELL_WIDTH = 40;
+    public static final int DEPTH = 50;
+    public static final int SPEED = 100;
+    private static JLabel[][] labels = new JLabel[ROW_CELL][COL_CELL];
     private static JFrame frame;
 
     private static void createAndShowGUI() {
         JFrame.setDefaultLookAndFeelDecorated(true);
-        frame = new JFrame("HelloWorldSwing");
+        frame = new JFrame("Game Life");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        frame.setSize(400, 400);
+        frame.setSize(ROW_CELL_WIDTH * ROW_CELL, ROW_CELL_WIDTH * COL_CELL);
         frame.setLayout(new GridLayout(10, 10));
 
 
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 10; j++) {
+        for (int i = 0; i < ROW_CELL; i++) {
+            for (int j = 0; j < COL_CELL; j++) {
                 JLabel label = new JLabel();
                 label.setText(String.valueOf(i));
                 frame.getContentPane().add(label);
@@ -35,12 +40,10 @@ public class GameLifeRunner {
     }
 
     public static void main(String[] args) {
-        int row = 10;
-        int col = 10;
 
-        int[][] initCellMap = new int[row][col];
-        for (int i = 0; i < row; i++) {
-            for (int j = 0; j < col; j++) {
+        int[][] initCellMap = new int[ROW_CELL][COL_CELL];
+        for (int i = 0; i < ROW_CELL; i++) {
+            for (int j = 0; j < COL_CELL; j++) {
                 initCellMap[i][j] = (int)(Math.random() * 2);
             }
         }
@@ -48,32 +51,21 @@ public class GameLifeRunner {
         GameLife gameLife = new GameLife(initCellMap);
 
         createAndShowGUI();
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < DEPTH; i++) {
             int[][] arr=gameLife.updateCellMap();
             configLabels(arr);
-//            printArr(arr);
         }
-
-    }
-
-    private static void printArr(int[][] arr) {
-        for (int j = 0; j <10 ; j++) {
-            for (int k = 0;k < 10; k++)
-                System.out.print(arr[j][k]+"\t");
-            System.out.println();
-        }
-        System.out.println("-----------");
     }
 
     private static void configLabels(int[][] array) {
         try {
-            Thread.sleep(100);
+            Thread.sleep(SPEED);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 10; j++) {
+        for (int i = 0; i < ROW_CELL; i++) {
+            for (int j = 0; j < COL_CELL; j++) {
                 int num = array[i][j];
                 String c = num == 1 ? "*" : " ";
                 labels[i][j].setText(c);
@@ -81,21 +73,5 @@ public class GameLifeRunner {
         }
 
         frame.repaint();
-
-    }
-
-    private static String descCellMap(int[][] array) {
-        int row = array.length;
-        int col = array[0].length;
-
-        StringBuilder stringBuilder = new StringBuilder();
-        for (int i = 0; i < row; i++) {
-            for (int j = 0; j < col; j++) {
-                stringBuilder.append(array[i][j] + " ");
-            }
-            stringBuilder.append("\r\n");
-        }
-
-        return stringBuilder.toString();
     }
 }
