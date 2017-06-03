@@ -5,15 +5,13 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JMenuItem;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
-import javax.swing.JFrame;
+import javax.swing.JMenuItem;
 
-/**
- * Created by XvWenJun on 2017/6/3.
- */
 public class GameLifeRunner {
 
     public static final int ROW_CELL = 20;
@@ -64,6 +62,8 @@ public class GameLifeRunner {
                 JLabel label = new JLabel();
                 label.setOpaque(true);
                 label.setText(String.valueOf(i));
+                label.setBorder(BorderFactory.createLineBorder(Color.BLUE));
+
                 frame.getContentPane().add(label);
                 labels[i][j] = label;
             }
