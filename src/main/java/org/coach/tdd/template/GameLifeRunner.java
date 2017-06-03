@@ -27,24 +27,30 @@ public class GameLifeRunner {
     private static int speed = 100;
     private static JLabel[][] labels = new JLabel[ROW_CELL][COL_CELL];
     private static JFrame frame;
+    private static int[][] initCellMap;
 
     public static void main(String[] args) {
+        initCellState();
+        createFrameAndShow();
+        runGame();
+    }
 
-        int[][] initCellMap = new int[ROW_CELL][COL_CELL];
+    private static void initCellState() {
+        initCellMap = new int[ROW_CELL][COL_CELL];
         for (int i = 0; i < ROW_CELL; i++) {
             for (int j = 0; j < COL_CELL; j++) {
                 initCellMap[i][j] = (int) (Math.random() * 2);
             }
         }
-        GameLife gameLife = new GameLife(initCellMap);
+    }
 
-        createFrameAndShow();
+    private static void runGame() {
+        GameLife gameLife = new GameLife(initCellMap);
         for (int i = 0; i < DEPTH; i++) {
             int[][] cellMap = gameLife.updateCellMap();
             configLabels(cellMap);
         }
     }
-
 
     private static void createFrameAndShow() {
         JFrame.setDefaultLookAndFeelDecorated(true);
