@@ -38,9 +38,23 @@ public class GameLife {
     private int isCellAlive(int x, int y) {
         if(x>=0&&x<kWidth&&y>=0&&y<kHeight) {
             return cellMap[x][y];
-
         }
-        return 0;
 
+        return 0;
+    }
+
+    public int getCellState(int x, int y) {
+        int cellAroundAliveNumber = getAliveNumber(x, y);
+
+        int result;
+        if (cellAroundAliveNumber == 3) {
+            result = 1;
+        } else if (cellAroundAliveNumber == 2) {
+            result = cellMap[x][y];
+        } else {
+            result = 0;
+        }
+
+        return result;
     }
 }

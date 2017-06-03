@@ -17,4 +17,14 @@ public class GameLifeTest {
         assertEquals(2,gameLife.getAliveNumber(0,2));
         assertEquals(3,gameLife.getAliveNumber(1,0));
     }
+
+    @Test
+    public void shouldReturnCurrentCellState() throws Exception {
+        int arr[][] = {{1, 1, 1}, {1, 0, 1},{1, 0,0}};
+        GameLife gameLife = new GameLife(arr);
+        assertEquals(1, gameLife.getCellState(0, 0));
+        assertEquals(0,gameLife.getCellState(0,1));
+        assertEquals(1,gameLife.getCellState(0,2));
+        assertEquals(1,gameLife.getCellState(1,0));
+    }
 }
