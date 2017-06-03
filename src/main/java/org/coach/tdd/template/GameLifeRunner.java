@@ -1,8 +1,10 @@
 package org.coach.tdd.template;
 
+import java.awt.GridLayout;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 
-import javax.swing.*;
-import java.awt.*;
+
 
 /**
  * Created by XvWenJun on 2017/6/3.
@@ -17,13 +19,33 @@ public class GameLifeRunner {
     private static JLabel[][] labels = new JLabel[ROW_CELL][COL_CELL];
     private static JFrame frame;
 
+
+
+    public static void main(String[] args) {
+
+        int[][] initCellMap = new int[ROW_CELL][COL_CELL];
+        for (int i = 0; i < ROW_CELL; i++) {
+            for (int j = 0; j < COL_CELL; j++) {
+                initCellMap[i][j] = (int) (Math.random() * 2);
+            }
+        }
+        GameLife gameLife = new GameLife(initCellMap);
+
+        createAndShowGUI();
+        for (int i = 0; i < DEPTH; i++) {
+            int[][] cellMap = gameLife.updateCellMap();
+            configLabels(cellMap);
+        }
+    }
+
+
     private static void createAndShowGUI() {
         JFrame.setDefaultLookAndFeelDecorated(true);
         frame = new JFrame("Game Life");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         frame.setSize(ROW_CELL_WIDTH * ROW_CELL, ROW_CELL_WIDTH * COL_CELL);
-        frame.setLayout(new GridLayout(10, 10));
+        frame.setLayout(new GridLayout(ROW_CELL, COL_CELL));
 
 
         for (int i = 0; i < ROW_CELL; i++) {
@@ -39,24 +61,6 @@ public class GameLifeRunner {
         frame.setVisible(true);
     }
 
-    public static void main(String[] args) {
-
-        int[][] initCellMap = new int[ROW_CELL][COL_CELL];
-        for (int i = 0; i < ROW_CELL; i++) {
-            for (int j = 0; j < COL_CELL; j++) {
-                initCellMap[i][j] = (int)(Math.random() * 2);
-            }
-        }
-
-        GameLife gameLife = new GameLife(initCellMap);
-
-        createAndShowGUI();
-        for (int i = 0; i < DEPTH; i++) {
-            int[][] arr=gameLife.updateCellMap();
-            configLabels(arr);
-        }
-    }
-
     private static void configLabels(int[][] array) {
         try {
             Thread.sleep(SPEED);
@@ -67,7 +71,7 @@ public class GameLifeRunner {
         for (int i = 0; i < ROW_CELL; i++) {
             for (int j = 0; j < COL_CELL; j++) {
                 int num = array[i][j];
-                String c = num == 1 ? "*" : " ";
+                String c = num == GameLife.ALIVE_STATE ? "*" : " ";
                 labels[i][j].setText(c);
             }
         }
