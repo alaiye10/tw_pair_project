@@ -71,19 +71,39 @@ public class GameLifeRunner {
                 labels[i][j] = label;
             }
         }
-
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
-
         createMenu();
     }
 
     private static void createMenu() {
         JMenuBar menuBar = new JMenuBar();
         frame.setJMenuBar(menuBar);
+        JMenu editMenu = new JMenu("Edit");
+        menuBar.add(editMenu);
+        configEditMenuItemAndAction(editMenu);
         JMenu speedMenu = new JMenu("Speed");
         configSpeedMenuItemAndAction(speedMenu);
         menuBar.add(speedMenu);
+    }
+
+    private static void configEditMenuItemAndAction(JMenu editMenu) {
+        JMenuItem clearItem = new JMenuItem("Clear");
+        clearItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                clearCellState();
+            }
+        });
+        editMenu.add(clearItem);
+    }
+
+    private static void clearCellState() {
+        for (int i = 0; i < ROW_CELL; i++) {
+            for (int j = 0; j < COL_CELL; j++) {
+                labels[i][j].setText(" ");
+            }
+        }
     }
 
     private static void configSpeedMenuItemAndAction(JMenu speedMenu) {
